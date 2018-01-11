@@ -211,6 +211,16 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         return true;
     }
 
+    private void openLocationInMap() {
+        String addressString = "1600 Ampitheatre Parkway, CA";
+        Uri geoLocation = Uri.parse("geo:0,0?q=" + addressString);
+        Intent intentOpenMap = new Intent(Intent.ACTION_VIEW);
+        intentOpenMap.setData(geoLocation);
+        if (intentOpenMap.resolveActivity(getPackageManager()) != null) {
+            startActivity(intentOpenMap);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -220,8 +230,11 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             loadWeatherData();
             return true;
         }
-
-        // TODO (2) Launch the map when the map menu item is clicked
+        // COMPLETED (2) Launch the map when the map menu item is clicked
+        if (id == R.id.action_map) {
+            openLocationInMap();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
